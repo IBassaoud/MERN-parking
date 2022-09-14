@@ -1,0 +1,20 @@
+{
+  "name": "node_parking",
+  "version": "1.0.0",
+  "description": "on veut faire la couche metier d'une société de gestion de parking qui prend des résas de ses clients et on note les fonctionnalités suivantes : créer un parking, lister l’ensemble des parkings, récupérer les détails d’un parking en particulier, Supprimer un parking",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "author": "BASSAOUD Ismail",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "fs": "^0.0.1-security",
+    "mongodb": "^4.9.1",
+    "node-fetch": "^2.6.7",
+    "path": "^0.12.7"
+  }
+}
