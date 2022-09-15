@@ -1,8 +1,10 @@
+const { log } = require('console');
 const express = require('express');
 const fs = require('fs');
+
 // Constants
 const PORT = 80;
-const HOST = 'localhost';
+const HOST = "127.0.0.1";
 
 const dotenv = require('dotenv').config();
 
@@ -19,6 +21,7 @@ app.use(express.static('assets'));
 
 // CRUD OPERATIONS
 // Insert one document
+//########## PARKINGS - INSERTION | EDIT ##########
 app.post("/create", function (req, res) {
     console.log("Insert one : ",req.body);
     MongoClient.connect(url, function (err, database) {
@@ -39,6 +42,8 @@ app.post("/create", function (req, res) {
     res.redirect(`http://${HOST}:${PORT}`)
 })
 
+
+//########## PARKINGS - READ ##########
 // Show all parkings
 app.get("/parking", function (req, res) {
     MongoClient.connect(url, function (err, database) {
@@ -51,13 +56,26 @@ app.get("/parking", function (req, res) {
             database.close();
         });
     });
-
-    
 })
 
 // Show one document
+app.get("/parking/:id", function (req, res) {
+    let ObjectId = require('mongodb').ObjectId;
+    const id_parking = new ObjectId(req.params.id);
+    const query = { _id : id_parking };
+    console.log(id_parking);
+    MongoClient.connect(url, function (err, database) {
+        if (err) throw err;
+        var dbo = database.db("db_parking");
+        dbo.collection("parking").find( query ).toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+            console.log(result);
+            database.close();
+        })
+        });
+    });
 
-//########## PARKINGS ##########
 
 app.get('/', (req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/html' });
